@@ -5,7 +5,7 @@ master.connect.puppetName.retry.interval=1000
 master.connect.puppetName.retry.times=10
 
 #服务器IP
-server.ip=www.onysakura.com
+server.ip=127.0.0.1
 
 #服务器端口
 server.port=6600
