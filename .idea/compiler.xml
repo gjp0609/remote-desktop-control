@@ -14,10 +14,9 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="common" target="1.8" />
-      <module name="desktop-control-parent" target="1.8" />
-      <module name="master" target="1.8" />
-      <module name="puppet" target="1.8" />
-      <module name="server" target="1.8" />
+      <module name="master" target="1.5" />
+      <module name="puppet" target="1.5" />
+      <module name="server" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>
