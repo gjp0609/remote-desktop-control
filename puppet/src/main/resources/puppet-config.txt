@@ -11,7 +11,7 @@ screen.refresh.frequency=500
 task.check.interval=1000
 
 #服务器IP地址
-server.ip=www.onysakura.com
+server.ip=127.0.0.1
 
 #服务器端口号
 server.port=6600

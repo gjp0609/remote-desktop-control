@@ -2,7 +2,7 @@
 mouse.double.check.delay=2000
 
 #服务器IP地址
-server.ip=www.onysakura.com
+server.ip=127.0.0.1
 
 #服务器端口号
 server.port=6600
