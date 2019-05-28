@@ -20,40 +20,40 @@ public class NettyServer {
      */
     private ChannelHandler channelInitialize;
 
-
-    /** logger */
+    /**
+     * logger
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(NettyServer.class);
 
-    private void bind(String host,int port) throws InterruptedException{
-        final NioEventLoopGroup boss=new NioEventLoopGroup();
-        final NioEventLoopGroup worker=new NioEventLoopGroup();
+    private void bind(String host, int port) throws InterruptedException {
+        final NioEventLoopGroup boss = new NioEventLoopGroup();
+        final NioEventLoopGroup worker = new NioEventLoopGroup();
 
-        try{
+        try {
             final ServerBootstrap bootstrap = new ServerBootstrap();
-            bootstrap.group(boss,worker)
-                     .channel(NioServerSocketChannel.class)
-                     .option(ChannelOption.SO_BACKLOG,1024)
-                     .childOption(ChannelOption.SO_KEEPALIVE,true)
-                     .childHandler(channelInitialize);
+            bootstrap.group(boss, worker)
+                    .channel(NioServerSocketChannel.class)
+                    .option(ChannelOption.SO_BACKLOG, 1024)
+                    .childOption(ChannelOption.SO_KEEPALIVE, true)
+                    .childHandler(channelInitialize);
 
             final ChannelFuture f = bootstrap.bind(host, port).sync();
 
-            LOGGER.info("server start on port:{}",port);
+            LOGGER.info("server start on port:{}", port);
             f.channel().closeFuture().sync();
-        }finally {
+        } finally {
             boss.shutdownGracefully();
             worker.shutdownGracefully();
         }
     }
 
-
-    public void start() throws Exception{
+    public void start() throws Exception {
         try {
             String ip = PropertiesUtil.getString(ConfigConstants.CONFIG_FILE_PATH, ConfigConstants.SERVER_IP);
             int port = PropertiesUtil.getInt(ConfigConstants.CONFIG_FILE_PATH, ConfigConstants.SERVER_PORT);
-            bind(ip,port);
-        }catch (IOException | InterruptedException e){
-            LOGGER.error(e.getMessage(),e);
+            bind(ip, port);
+        } catch (IOException | InterruptedException e) {
+            LOGGER.error(e.getMessage(), e);
             throw e;
         }
     }

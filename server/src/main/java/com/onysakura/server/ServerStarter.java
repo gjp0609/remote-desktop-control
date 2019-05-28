@@ -18,7 +18,7 @@ public class ServerStarter {
         try {
             context.getBean(NettyServer.class).start();
         } catch (Exception e) {
-            LOGGER.error(e.getMessage());
+            e.printStackTrace();
         }
     }
 }

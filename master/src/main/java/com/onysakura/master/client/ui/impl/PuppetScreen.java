@@ -20,9 +20,6 @@ public class PuppetScreen extends AbstractDisplayPuppet implements ActionListene
     private QualitySlider qualitySlider;
     private BufferedImage image;
 
-    public PuppetScreen() {
-    }
-
     public PuppetScreen(String puppetName){
         super(puppetName);
     }
