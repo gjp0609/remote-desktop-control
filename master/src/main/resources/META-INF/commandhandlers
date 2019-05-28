@@ -1,0 +1,7 @@
+CONNECT=com.onysakura.master.client.commandhandler.ConnectCommandHandler
+CONTROL=com.onysakura.master.client.commandhandler.ControlFireCommandHandler
+SCREEN=com.onysakura.master.client.commandhandler.ScreenCommandHandler
+KEYBOARD=com.onysakura.master.client.commandhandler.CommonFireCommandHandler
+MOUSE=com.onysakura.master.client.commandhandler.CommonFireCommandHandler
+TERMINATE=com.onysakura.master.client.commandhandler.CommonFireCommandHandler
+QUALITY=com.onysakura.master.client.commandhandler.CommonFireCommandHandler

@@ -1,0 +1,86 @@
+package com.onysakura.master.client.netty;
+import com.onysakura.common.command.Commands;
+import com.onysakura.common.util.CommandHandlerLoader;
+import com.onysakura.common.dto.Response;
+import com.onysakura.common.command.handler.ICommandHandler;
+import com.onysakura.common.exception.CommandHandlerLoaderException;
+import com.onysakura.master.client.commandhandler.AbstractMasterFireCommandHandler;
+import com.onysakura.master.client.constant.ExceptionMessageConstants;
+import com.onysakura.master.client.exception.FireCommandHandlerException;
+import com.onysakura.master.client.exception.MasterChannelHandlerException;
+import io.netty.channel.ChannelHandler;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.SimpleChannelInboundHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.util.StringUtils;
+
+import javax.swing.*;
+
+/**
+ * @author Cool-Coding
+ *         2018/7/25
+ */
+@ChannelHandler.Sharable
+public class MasterNettyClientHandler extends SimpleChannelInboundHandler<Response> {
+    /** logger */
+    private static final Logger LOGGER = LoggerFactory.getLogger(MasterNettyClientHandler.class);
+
+    //记录上一次消息
+    private String pre_message;
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected void channelRead0(ChannelHandlerContext ctx, Response response) throws Exception {
+        if (response.getError()!=null ){
+            if(!response.getError().getMessage().equals(pre_message)) {
+                SwingUtilities.invokeLater(() -> {
+                    JOptionPane.showMessageDialog(null, response.getError().getMessage());
+                });
+                pre_message = response.getError().getMessage();
+                LOGGER.error(pre_message);
+            }
+            return;
+        }
+
+        final ICommandHandler commandHandler = CommandHandlerLoader.getCommandHandler(response.getCommand());
+        LOGGER.debug(response.toString());
+        commandHandler.handle(ctx,response);
+    }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        LOGGER.error(cause.getMessage(),cause);
+        ctx.close();
+    }
+
+    @SuppressWarnings("unchecked")
+    void fireCommand(String puppetName, Enum<Commands> command, Object data){
+        if (StringUtils.isEmpty(puppetName)){
+            throw new MasterChannelHandlerException(ExceptionMessageConstants.PUPPET_NAME_EMPTY);
+        }
+
+        try {
+        getFireCommandHandler(command).fire(puppetName,command,data);
+        LOGGER.debug("fire a command to server:{}",command);
+        } catch (FireCommandHandlerException e) {
+            throw new MasterChannelHandlerException(e.getMessage(), e);
+        }
+    }
+
+
+    @SuppressWarnings("unchecked")
+    private AbstractMasterFireCommandHandler<Object> getFireCommandHandler(Enum<Commands> command) throws MasterChannelHandlerException{
+        try {
+            final ICommandHandler commandHandler = CommandHandlerLoader.getCommandHandler(command);
+            if (commandHandler instanceof AbstractMasterFireCommandHandler) {
+                return (AbstractMasterFireCommandHandler<Object>) commandHandler;
+            } else {
+                throw new MasterChannelHandlerException(ExceptionMessageConstants.FIRE_COMMAND_HANDLE_ERROR);
+            }
+        }catch (CommandHandlerLoaderException e){
+            throw new MasterChannelHandlerException(e.getMessage(),e);
+        }
+
+    }
+}

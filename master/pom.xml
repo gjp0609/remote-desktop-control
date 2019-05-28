@@ -45,7 +45,7 @@
                         <configuration>
                             <archive>
                                 <manifest>
-                                    <mainClass>cn.yang.server.ServerStarter</mainClass>
+                                    <mainClass>com.onysakura.master.client.MasterStarter</mainClass>
                                 </manifest>
                             </archive>
                             <descriptorRefs>

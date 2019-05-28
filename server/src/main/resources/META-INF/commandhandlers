@@ -1,0 +1,8 @@
+CONNECT=com.onysakura.server.commandhandler.ConnectionCommandHandler
+CONTROL=com.onysakura.server.commandhandler.ControlCommandHandler
+HEARTBEAT=com.onysakura.server.commandhandler.HeartBeatCommandHandler
+SCREEN=com.onysakura.server.commandhandler.ScreenCommandHandler
+KEYBOARD=com.onysakura.server.commandhandler.CommonFireCommandHandler
+MOUSE=com.onysakura.server.commandhandler.CommonFireCommandHandler
+QUALITY=com.onysakura.server.commandhandler.CommonFireCommandHandler
+TERMINATE=com.onysakura.server.commandhandler.CommonFireCommandHandler

@@ -5,38 +5,38 @@
             http://www.springframework.org/schema/beans
             http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
-    <bean id="encoder" class="cn.yang.common.serialization.ProtobufEncoder" scope="prototype">
-        <constructor-arg index="0" type="java.lang.Class" value="cn.yang.common.dto.Request"/>
+    <bean id="encoder" class="com.onysakura.common.serialization.ProtobufEncoder" scope="prototype">
+        <constructor-arg index="0" type="java.lang.Class" value="com.onysakura.common.dto.Request"/>
     </bean>
     
-    <bean id="decoder" class="cn.yang.common.serialization.ProtobufDecoder" scope="prototype">
-        <constructor-arg index="0" type="java.lang.Class" value="cn.yang.common.dto.Response"/>
+    <bean id="decoder" class="com.onysakura.common.serialization.ProtobufDecoder" scope="prototype">
+        <constructor-arg index="0" type="java.lang.Class" value="com.onysakura.common.dto.Response"/>
     </bean>
 
     <!-- 响应处理器 -->
-    <bean id="handler" class="cn.yang.master.client.netty.MasterNettyClientHandler" />
+    <bean id="handler" class="com.onysakura.master.client.netty.MasterNettyClientHandler" />
 
-    <bean id="channelInitialize" class="cn.yang.common.netty.ChannelInitializer">
-        <constructor-arg index="0" type="java.lang.Class" value="cn.yang.common.dto.Response" />
-        <constructor-arg index="1" type="java.lang.Class" value="cn.yang.common.dto.Request" />
+    <bean id="channelInitialize" class="com.onysakura.common.netty.ChannelInitializer">
+        <constructor-arg index="0" type="java.lang.Class" value="com.onysakura.common.dto.Response" />
+        <constructor-arg index="1" type="java.lang.Class" value="com.onysakura.common.dto.Request" />
         <property name="channelHandler" ref="handler" />
     </bean>
 
     <!--Netty Client-->
-    <bean id="masterClient" class="cn.yang.master.client.netty.MasterNettyClient" init-method="init" destroy-method="destroy">
+    <bean id="masterClient" class="com.onysakura.master.client.netty.MasterNettyClient" init-method="init" destroy-method="destroy">
         <property name="channelInitialize" ref="channelInitialize" />
     </bean>
 
     <!-- bean until-->
-    <bean id="beanUtil" class="cn.yang.common.util.BeanUtil" />
+    <bean id="beanUtil" class="com.onysakura.common.util.BeanUtil" />
 
     <!-- desktop -->
-    <bean id="desktop" class="cn.yang.master.client.ui.impl.MasterDesktop">
+    <bean id="desktop" class="com.onysakura.master.client.ui.impl.MasterDesktop">
         <property name="masterClient" ref="masterClient"/>
     </bean>
 
     <!--sequence generator-->
-    <bean id="generator" class="cn.yang.common.generator.impl.SimpleSequenceGenerator" />
+    <bean id="generator" class="com.onysakura.common.generator.impl.SimpleSequenceGenerator" />
 
-    <bean id="puppetScreen" class="cn.yang.master.client.ui.impl.PuppetScreen" scope="prototype" />
+    <bean id="puppetScreen" class="com.onysakura.master.client.ui.impl.PuppetScreen" scope="prototype" />
 </beans>

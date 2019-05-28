@@ -45,7 +45,7 @@
                         <configuration>
                             <archive>
                                 <manifest>
-                                    <mainClass>cn.yang.server.ServerStarter</mainClass>
+                                    <mainClass>com.onysakura.puppet.client.PuppetStarter</mainClass>
                                 </manifest>
                             </archive>
                             <descriptorRefs>

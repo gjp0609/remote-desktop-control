@@ -1,0 +1,6 @@
+CONNECT=com.onysakura.puppet.client.commandhandler.ConnectCommandHandler
+CONTROL=com.onysakura.puppet.client.commandhandler.ControlCommandHandler
+KEYBOARD=com.onysakura.puppet.client.commandhandler.KeyBoardEventCommandHandler
+MOUSE=com.onysakura.puppet.client.commandhandler.MouseEventCommandHandler
+TERMINATE=com.onysakura.puppet.client.commandhandler.TerminateCommandHandler
+QUALITY=com.onysakura.puppet.client.commandhandler.QualityCommandHandler
